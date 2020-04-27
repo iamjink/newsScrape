@@ -36,16 +36,16 @@ $(document).ready(function () {
     });
 
     //clear articles
-    $(document).on("click", "#clear", function () {
+    // $(document).on("click", "#clear", function () {
 
-        $.ajax({
-            type: "PUT",
-            url: "articles/"
-        }).then(function (data) {
-            location.reload();
-            return false;
-        });
-    });
+    //     $.ajax({
+    //         type: "PUT",
+    //         url: "articles/clear"
+    //     }).then(function (data) {
+    //         location.reload();
+    //         return false;
+    //     });
+    // });
 
 
 });

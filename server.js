@@ -22,6 +22,8 @@ mongoose.connect("mongodb://localhost/newsScrape", {
 });
 
 //routes
+
+//route for scraping
 app.get("/scrape", function (req, res) {
     axios.get("hhttps://arstechnica.com/").then(function (response) {
         var $ = cheerio.load(response.data);
@@ -43,6 +45,7 @@ app.get("/scrape", function (req, res) {
     });
 });
 
+//getting all articles
 app.get("/articles", function (req, res) {
     db.Article.find({}).then(function (dbArticle) {
         res.json(dbArticle);
@@ -52,19 +55,21 @@ app.get("/articles", function (req, res) {
     });
 });
 
-app.get("/articles/:id", function (req, res) {
-    //joining note associated with the article id
-    db.Article.findOne({
-        _id: req.params.id
-    }).then(function (dbArticle) {
+//route for pulling each article by its id and populating it with notes
+app.get("/articles/:id", function(req, res) {
+   
+    db.Article.findOne({ _id: req.params.id })
+      .populate("note")
+      .then(function(dbArticle) {
         res.json(dbArticle);
-    }).catch(function (err) {
-        console.log(err);
-    });
-});
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+  });
 
+//route for saving article, so that "saved" is set to true
 app.put("/articles/:id", function (req, res) {
-    //joining note associated with the article id
     db.Article.update({
         _id: req.params.id
     }, {
@@ -78,6 +83,7 @@ app.put("/articles/:id", function (req, res) {
     });
 });
 
+//route for posting notes to article
 app.post("/articles/:id", function (req, res) {
     db.Note.create(req.body)
         .then(function (dbNote) {
@@ -97,10 +103,10 @@ app.post("/articles/:id", function (req, res) {
         });
 });
 
-app.post("/articles/delete", function (req, res) {
-    var userId = req.body._id || req.query._id;
+//route for deleting article
+app.put("/articles/delete/:id", function (req, res) {
     db.Article.remove({
-            _id: userId
+            _id: req.params.id
         }).then(function (dbArticle) {
             res.json(dbArticle);
         })
