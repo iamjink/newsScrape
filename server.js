@@ -10,11 +10,11 @@ var db = require("./models");
 var PORT = 8080;
 var app = express();
 
-app.use(logger("dev"));
 app.use(express.urlencoded({
     extended: true
 }));
 app.use(express.static("public"));
+app.use(logger("dev"));
 
 //MongoDB database connection
 mongoose.connect("mongodb://localhost/newsScrape", {
@@ -23,12 +23,12 @@ mongoose.connect("mongodb://localhost/newsScrape", {
 
 //routes
 app.get("/scrape", function (req, res) {
-    axios.get("https://old.reddit.com/r/webdev").then(function (response) {
+    axios.get("hhttps://arstechnica.com/").then(function (response) {
         var $ = cheerio.load(response.data);
-        $("p.title").each(function (i, element) {
+        $('h2').each(function (i, element) {
             var result = {};
             result.title = $(element).text();
-            result.link = $(element).children().attr("href");
+            result.link = $(element).children('a').attr("href");
 
             console.log(result);
 
@@ -38,7 +38,7 @@ app.get("/scrape", function (req, res) {
                 console.log(err);
             });
         });
-        res.send("Scrape complete")
+        res.sendFile(__dirname + "/public/index.html");
         console.log("Scrape complete");
 
     });
@@ -53,11 +53,23 @@ app.get("/articles", function (req, res) {
     });
 });
 
-app.get("/articles/:id", function (req, res) {
+// app.get("/articles/:id", function (req, res) {
+//     //joining note associated with the article id
+//     db.Article.findOne({
+//         _id: req.params.id
+//     }).populate("note").then(function (dbArticle) {
+//         res.json(dbArticle);
+//     }).catch(function (err) {
+//         console.log(err);
+//     });
+//     res.json(dbArticle)
+// });
+
+app.put("/articles/:id", function (req, res) {
     //joining note associated with the article id
-    db.Article.findOne({
+    db.Article.update({
         _id: req.params.id
-    }).populate("note").then(function (dbArticle) {
+    }, {$set: {saved:[true]}}).then(function (dbArticle) {
         res.json(dbArticle);
     }).catch(function (err) {
         console.log(err);
