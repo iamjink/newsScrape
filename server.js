@@ -40,7 +40,6 @@ app.get("/scrape", function (req, res) {
         });
         res.sendFile(__dirname + "/public/index.html");
         console.log("Scrape complete");
-
     });
 });
 
@@ -53,28 +52,30 @@ app.get("/articles", function (req, res) {
     });
 });
 
-// app.get("/articles/:id", function (req, res) {
-//     //joining note associated with the article id
-//     db.Article.findOne({
-//         _id: req.params.id
-//     }).populate("note").then(function (dbArticle) {
-//         res.json(dbArticle);
-//     }).catch(function (err) {
-//         console.log(err);
-//     });
-//     res.json(dbArticle)
-// });
+app.get("/articles/:id", function (req, res) {
+    //joining note associated with the article id
+    db.Article.findOne({
+        _id: req.params.id
+    }).then(function (dbArticle) {
+        res.json(dbArticle);
+    }).catch(function (err) {
+        console.log(err);
+    });
+});
 
 app.put("/articles/:id", function (req, res) {
     //joining note associated with the article id
     db.Article.update({
         _id: req.params.id
-    }, {$set: {saved:[true]}}).then(function (dbArticle) {
+    }, {
+        $set: {
+            saved: true
+        }
+    }).then(function (dbArticle) {
         res.json(dbArticle);
     }).catch(function (err) {
         console.log(err);
     });
-    res.json(dbArticle)
 });
 
 app.post("/articles/:id", function (req, res) {
@@ -94,6 +95,23 @@ app.post("/articles/:id", function (req, res) {
         .catch(function (err) {
             res.json(err);
         });
+});
+
+app.post("/articles/delete", function (req, res) {
+    var userId = req.body._id || req.query._id;
+    db.Article.remove({
+            _id: userId
+        }).then(function (dbArticle) {
+            res.json(dbArticle);
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
+});
+
+
+app.put("/articles/clear", function (req, res) {
+    db.Article.remove({})
 });
 
 //Start server

@@ -8,10 +8,14 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- jquery -->
+
     <title>newScrape</title>
 </head>
 
 <body>
+
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
         <a class="navbar-brand" href="#"></a>
@@ -29,14 +33,11 @@
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/saved">Saved Articles</a>
+                    <a class="nav-link" href="./saved.html">Saved Articles</a>
                 </li>
             </ul>
             <li class="nav-item">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">SCRAPE NEW ARTICLES!</button>
-            </li>
-            <li class="nav-item">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">CLEAR ARTICLES!</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" id="clear">CLEAR ARTICLES!</button>
             </li>
         </div>
     </nav>
@@ -48,23 +49,31 @@
             <p class="lead">from ArsTechnica</p>
         </div>
     </div>
-
-    <!-- notification card -->
-    <div class="card" id="notification">
-        <h5 class="card-header">Uh oh...Looks like we don't have any new articles.</h5>
-    </div>
-    <br>
-
-    <div class="card">
-        <h5 class="card-header">What Would You Like To Do?</h5>
-        <div class="card-body">
-            <a href="./index.html"> <button>Browse Articles</button></a>
+    <div id="results">
+        <!-- notiication card -->
+        <div id="notice">
+            <!-- notification card -->
+            <div class="card" id="notification">
+                <h5 class="card-header">Uh oh...Looks like we don't have any new articles.</h5>
+            </div>
             <br>
+            <div class="card">
+                <h5 class="card-header">What Would You Like To Do?</h5>
+                <div class="card-body">
+                    <a href="./index.html"> <button>Browse Articles</button></a>
+                    <br>
+                </div>
+            </div>
+            <br>
+
         </div>
+
+        <br>
     </div>
-    <br>
+
 
     <!-- Optional JavaScript -->
+
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -75,8 +84,9 @@
     </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-    </script>    
-    <script src="app.js"></script>
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="notes.js"></script>
 </body>
 
 </html>
