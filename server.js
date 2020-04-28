@@ -2,14 +2,9 @@ var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 
-var MONGODB_URI = process.env.MONGODB_URI;
-var databaseUrl = 'mongodb://localhost/mongoHeadlines'
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
-if(process.env.MONGODB_URI){
-    mongoose.connect(process.env.MONGODB_URI)
-} else {
-    mongoose.connect(databaseUrl)
-};
+mongoose.connect(MONGODB_URI);
 
 //scraping tools
 var axios = require("axios");
