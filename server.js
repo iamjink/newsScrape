@@ -2,6 +2,9 @@ var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+mongoose.connect(MONGODB_URI);
+
 //scraping tools
 var axios = require("axios");
 var cheerio = require("cheerio");
@@ -56,17 +59,19 @@ app.get("/articles", function (req, res) {
 });
 
 //route for pulling each article by its id and populating it with notes
-app.get("/articles/:id", function(req, res) {
-   
-    db.Article.findOne({ _id: req.params.id })
-      .populate("note")
-      .then(function(dbArticle) {
-        res.json(dbArticle);
-      })
-      .catch(function(err) {
-        res.json(err);
-      });
-  });
+app.get("/articles/:id", function (req, res) {
+
+    db.Article.findOne({
+            _id: req.params.id
+        })
+        .populate("note")
+        .then(function (dbArticle) {
+            res.json(dbArticle);
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
+});
 
 //route for saving article, so that "saved" is set to true
 app.put("/articles/:id", function (req, res) {
