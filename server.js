@@ -126,6 +126,10 @@ app.put("/articles/clear", function (req, res) {
 });
 
 //Start server
-app.listen(PORT, function () {
-    console.log("App running on PORT 🌎 http://localhost:" + PORT);
+// app.listen(MONGODB_URI, function () {
+//     console.log("App running on PORT 🌎 http://localhost:" + PORT);
+// })
+
+app.listen(MONGODB_URI, function () {
+    console.log("App running on PORT 🌎 :" + MONGODB_URI);
 })
