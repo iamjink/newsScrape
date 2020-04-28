@@ -94,4 +94,6 @@ $(document).ready(function () {
         });
     });
 
+    //need to work on showing notes in the popover with option of editing and deleting the notes
+
 });

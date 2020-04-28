@@ -75,7 +75,7 @@ app.put("/articles/:id", function (req, res) {
     }, {
         $set: {
             saved: true
-        }
+        },
     }).then(function (dbArticle) {
         res.json(dbArticle);
     }).catch(function (err) {
