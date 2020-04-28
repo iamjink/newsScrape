@@ -2,8 +2,14 @@ var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-mongoose.connect(MONGODB_URI);
+var MONGODB_URI = process.env.MONGODB_URI;
+var databaseUrl = 'mongodb://localhost/mongoHeadlines'
+
+if(process.env.MONGODB_URI){
+    mongoose.connect(process.env.MONGODB_URI)
+} else {
+    mongoose.connect(databaseUrl)
+};
 
 //scraping tools
 var axios = require("axios");
@@ -126,10 +132,6 @@ app.put("/articles/clear", function (req, res) {
 });
 
 //Start server
-// app.listen(MONGODB_URI, function () {
-//     console.log("App running on PORT 🌎 http://localhost:" + PORT);
-// })
-
-app.listen(MONGODB_URI, function () {
-    console.log("App running on PORT 🌎 :" + MONGODB_URI);
+app.listen(PORT, function () {
+    console.log("App running on PORT 🌎 http://localhost:" + PORT);
 })
