@@ -117,7 +117,7 @@ app.put("/articles/delete/:id", function (req, res) {
 
 
 app.put("/articles/clear", function (req, res) {
-    db.Article.remove({})
+    db.Article.drop({})
 });
 
 //Start server
