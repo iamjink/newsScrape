@@ -22,9 +22,9 @@ app.use(express.static("public"));
 app.use(logger("dev"));
 
 //MongoDB database connection
-mongoose.connect("mongodb://localhost/newsScrape", {
-    useNewUrlParser: true
-});
+// mongoose.connect("mongodb://localhost/newsScrape", {
+//     useNewUrlParser: true
+// });
 
 //routes
 
