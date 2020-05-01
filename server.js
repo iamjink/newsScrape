@@ -3,7 +3,7 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 require('dotenv').config();
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsScrape";
+var MONGODB_URI = process.env.MONGOLAB_URI || "mongodb://localhost/newsScrape";
 
 mongoose.connect(MONGODB_URI);
 
